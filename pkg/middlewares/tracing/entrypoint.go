@@ -43,6 +43,9 @@ func (e *entryPointMiddleware) ServeHTTP(rw http.ResponseWriter, req *http.Reque
 	span, req, finish := e.StartSpanf(req, ext.SpanKindRPCServerEnum, "EntryPoint", []string{e.entryPoint, req.Host}, " ", ext.RPCServerOption(spanCtx))
 	defer finish()
 
+	amznTraceId := req.Header.Get("X-Amzn-Trace-Id")
+	span.SetTag("http.header.x_amzn_trace_id", amznTraceId)
+
 	ext.Component.Set(span, e.ServiceName)
 	tracing.LogRequest(span, req)
 

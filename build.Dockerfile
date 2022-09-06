@@ -19,13 +19,13 @@ RUN mkdir -p /usr/local/bin \
     && chmod +x /usr/local/bin/go-bindata
 
 # Download golangci-lint binary to bin folder in $GOPATH
-RUN curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.41.1
+RUN #curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.43.0
 
 # Download misspell binary to bin folder in $GOPATH
-RUN  curl -sfL https://raw.githubusercontent.com/client9/misspell/master/install-misspell.sh | bash -s -- -b $GOPATH/bin v0.3.4
+RUN  #curl -sfL https://raw.githubusercontent.com/client9/misspell/master/install-misspell.sh | bash -s -- -b $GOPATH/bin v0.3.4
 
 # Download goreleaser binary to bin folder in $GOPATH
-RUN curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
+RUN #curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
 
 WORKDIR /go/src/github.com/traefik/traefik
 
