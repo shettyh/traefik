@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/traefik/traefik/v2/pkg/config/dynamic"
 	"math/rand"
 	"net"
 	"time"
+
+	"github.com/traefik/traefik/v2/pkg/config/dynamic"
 
 	"github.com/traefik/traefik/v2/pkg/config/runtime"
 	"github.com/traefik/traefik/v2/pkg/log"
