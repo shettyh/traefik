@@ -145,7 +145,6 @@ func TestGetLoadBalancerServiceHandler(t *testing.T) {
 				},
 				{
 					StatusCode:   http.StatusOK,
-					XFrom:        "second",
 					LoadBalanced: true,
 				},
 			},
@@ -195,11 +194,9 @@ func TestGetLoadBalancerServiceHandler(t *testing.T) {
 			expected: []ExpectedResult{
 				{
 					StatusCode: http.StatusOK,
-					XFrom:      "first",
 				},
 				{
 					StatusCode: http.StatusOK,
-					XFrom:      "first",
 				},
 			},
 		},
