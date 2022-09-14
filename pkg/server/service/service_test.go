@@ -113,6 +113,7 @@ func TestGetLoadBalancerServiceHandler(t *testing.T) {
 		XFrom          string
 		SecureCookie   bool
 		HTTPOnlyCookie bool
+		LoadBalanced   bool
 	}
 
 	testCases := []struct {
@@ -139,12 +140,13 @@ func TestGetLoadBalancerServiceHandler(t *testing.T) {
 			},
 			expected: []ExpectedResult{
 				{
-					StatusCode: http.StatusOK,
-					XFrom:      "first",
+					StatusCode:   http.StatusOK,
+					LoadBalanced: true,
 				},
 				{
-					StatusCode: http.StatusOK,
-					XFrom:      "second",
+					StatusCode:   http.StatusOK,
+					XFrom:        "second",
+					LoadBalanced: true,
 				},
 			},
 		},
@@ -302,13 +304,26 @@ func TestGetLoadBalancerServiceHandler(t *testing.T) {
 				req.Header.Set("Cookie", test.cookieRawValue)
 			}
 
+			var prevXFrom string
 			for _, expected := range test.expected {
 				recorder := httptest.NewRecorder()
 
 				handler.ServeHTTP(recorder, req)
 
 				assert.Equal(t, expected.StatusCode, recorder.Code)
-				assert.Equal(t, expected.XFrom, recorder.Header().Get("X-From"))
+				if expected.XFrom != "" {
+					assert.Equal(t, expected.XFrom, recorder.Header().Get("X-From"))
+				}
+
+				xFrom := recorder.Header().Get("X-From")
+				if prevXFrom != "" {
+					if expected.LoadBalanced {
+						assert.NotEqual(t, prevXFrom, xFrom)
+					} else {
+						assert.Equal(t, prevXFrom, xFrom)
+					}
+				}
+				prevXFrom = xFrom
 
 				cookieHeader := recorder.Header().Get("Set-Cookie")
 				if len(cookieHeader) > 0 {
