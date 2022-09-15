@@ -1,3 +1,9 @@
+## [v2.8.4-1](https://github.com/traefik/traefik/tree/v2.8.4-1) (2022-09-15)
+[All Commits](https://github.com/traefik/traefik/compare/v2.8.4...v2.8.4-1)
+
+**Enhancements:**
+- **[tcp,service,udp]** Make the loadbalancers servers order random ([#9037](https://github.com/traefik/traefik/pull/9037) by [qmloong](https://github.com/qmloong))
+
 ## [v2.8.4](https://github.com/traefik/traefik/tree/v2.8.4) (2022-09-02)
 [All Commits](https://github.com/traefik/traefik/compare/v2.8.3...v2.8.4)
 
